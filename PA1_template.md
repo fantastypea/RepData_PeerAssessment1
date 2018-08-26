@@ -1,0 +1,144 @@
+<<<<<<< HEAD
+# Reproducible research assignment 1
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Loading and preprocessing the data
+
+This code is used to load the data and process thedata
+```{r loaddata}
+data <- read.csv("activity.csv",na.strings = "NA")
+summary(data)
+```
+
+## 2. What is mean total number of steps taken per day
+
+```{r plot}
+stepday <- tapply(data$steps,data$date,sum,na.rm=TRUE)
+hist(stepday,breaks=20,xlab = "number of steps")
+```
+
+This is to calculate the median and mean of total number of steps
+
+```{r median}
+median(stepday)
+```
+```{r mean}
+mean(stepday)
+```
+
+## 3. What is the average daily activity pattern?
+### make the plot
+```{r interval}
+data$interval <- as.factor(data$interval)
+interstep <- tapply(data$steps,data$interval,mean,na.rm=TRUE)
+plot(as.numeric(unique(data$interval)),interstep,type="l",xlab="interval",ylab="average number of steps")
+```
+
+### which contains the maximum
+```{r findmax}
+interstep[which.max(interstep)]
+```
+
+## 4. Imputing missing values
+### total nubmer of missing values
+```{r missing}
+sum(is.na(data$steps))
+```
+
+### fill the missing value based on mean of the 5 min interval
+
+```{r fill data}
+newdata <- data
+naindex <- which(is.na(data$steps))
+xy <- data$interval[naindex]
+xy <- as.character(data$interval[naindex])
+substi <- as.numeric(vector())
+for (i in xy){substi <- c(substi,interstep[i])}
+newdata$steps[naindex] <- substi
+summary(newdata)
+```
+
+### plot histogram
+
+```{r plotfilled}
+newstep <- tapply(newdata$steps,newdata$date,sum)
+hist(newstep,breaks = 20,xlab = "number of steps")
+```
+
+mean and median total number of steps taken per day
+```{r mean2}
+mean(newstep)
+```
+
+```{r median2}
+median(newstep)
+```
+
+Both values shifted compared with the previous results
+
+## 5. Are there differences in activity patterns between weekdays and weekends
+
+### Create new factor variable
+
+```{r factor weekday}
+weekday <- c("Monday","Tuesday","Wednesday","Thursday","Friday")
+weekend <- c("Saturday","Sunday")
+week <- as.character(weekdays(as.Date(data$date)))
+week[week %in% weekday] <- "weekday"
+week[week %in% weekend] <- "weekend"
+data$newcolumn <- week
+head(data)
+```
+
+```{r factor}
+levels(as.factor(data$newcolumn))
+```
+
+### Make new plot for weekday and weekends
+
+```{r}
+library(reshape2)
+groupinter <- tapply(data$steps,list(data$interval,data$newcolumn),mean,na.rm=TRUE)
+groupinter <- data.frame(groupinter)
+groupinter <- cbind(groupinter,unique(data$interval))
+names(groupinter)[3] <- "interval"
+melted <- melt(groupinter,id.vars = "interval" ,variable.name = "time", value.name = "steps")
+head(melted)
+```
+
+```{r plotweekend}
+library(lattice)
+melted$interval <- as.numeric(melted$interval)
+xyplot(steps~interval|time,melted,type="l",layout=c(1,2),scales =list(x=list(tick.number=5, tck=0.1)))
+```
+
+=======
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
+
+
+## Loading and preprocessing the data
+
+
+
+## What is mean total number of steps taken per day?
+
+
+
+## What is the average daily activity pattern?
+
+
+
+## Imputing missing values
+
+
+
+## Are there differences in activity patterns between weekdays and weekends?
+>>>>>>> 80edf39c3bb508fee88e3394542f967dd3fd3270
