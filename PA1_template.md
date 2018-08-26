@@ -115,30 +115,3 @@ melted$interval <- as.numeric(melted$interval)
 xyplot(steps~interval|time,melted,type="l",layout=c(1,2),scales =list(x=list(tick.number=5, tck=0.1)))
 ```
 
-=======
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
-
-
-## Loading and preprocessing the data
-
-
-
-## What is mean total number of steps taken per day?
-
-
-
-## What is the average daily activity pattern?
-
-
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
->>>>>>> 80edf39c3bb508fee88e3394542f967dd3fd3270
