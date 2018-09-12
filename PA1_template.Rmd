@@ -52,7 +52,7 @@ sum(is.na(data$steps))
 
 ### fill the missing value based on mean of the 5 min interval
 
-```{r fill data}
+```{r filldata}
 newdata <- data
 naindex <- which(is.na(data$steps))
 xy <- data$interval[naindex]
