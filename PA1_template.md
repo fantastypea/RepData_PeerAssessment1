@@ -3,6 +3,8 @@
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(dev = c('png'))
+knitr::opts_chunk$set(fig.path="figures/")
 ```
 
 ## 1. Loading and preprocessing the data
@@ -114,4 +116,6 @@ library(lattice)
 melted$interval <- as.numeric(melted$interval)
 xyplot(steps~interval|time,melted,type="l",layout=c(1,2),scales =list(x=list(tick.number=5, tck=0.1)))
 ```
+
+
 
