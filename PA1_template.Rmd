@@ -3,6 +3,8 @@
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(dev = c('png'))
+knitr::opts_chunk$set(fig.path="figures/")
 ```
 
 ## 1. Loading and preprocessing the data
